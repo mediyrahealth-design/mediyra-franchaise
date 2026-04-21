@@ -1,0 +1,145 @@
+type _ImmutableObjectStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _ImmutableObjectStorageRefillInformation = record {
+                                                  proposed_top_up_amount:
+                                                   opt nat;};
+type _ImmutableObjectStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserId = principal;
+type UpdateCenterRequest = 
+ record {
+   address: text;
+   city: text;
+   contactPerson: text;
+   mobile: text;
+   name: text;
+   status: CenterStatus;
+ };
+type Timestamp = int;
+type LabTest = 
+ record {
+   category: text;
+   description: text;
+   fastingRequired: bool;
+   id: text;
+   isActive: bool;
+   mrp: nat;
+   name: text;
+   partnerPrice: nat;
+   reportTime: text;
+   sampleType: text;
+   tubeType: text;
+ };
+type DashboardSummary = 
+ record {
+   reportsPending: nat;
+   todaysSamples: nat;
+   totalBookings: nat;
+   totalRevenue: nat;
+ };
+type CreateCenterRequest = 
+ record {
+   address: text;
+   city: text;
+   contactPerson: text;
+   mobile: text;
+   name: text;
+ };
+type CreateBookingRequest = 
+ record {
+   age: nat;
+   gender: text;
+   mobile: text;
+   patientName: text;
+   referringDoctor: text;
+   testIds: vec text;
+ };
+type CollectionCenter = 
+ record {
+   address: text;
+   assignedPrincipal: opt UserId;
+   city: text;
+   contactPerson: text;
+   createdAt: Timestamp;
+   id: text;
+   mobile: text;
+   name: text;
+   status: CenterStatus;
+ };
+type CenterStatus = 
+ variant {
+   active;
+   inactive;
+ };
+type BookingStatus = 
+ variant {
+   Pending;
+   Processing;
+   ReportReady;
+   SampleReceived;
+ };
+type Booking = 
+ record {
+   age: nat;
+   bookingDate: Timestamp;
+   createdAt: Timestamp;
+   gender: text;
+   id: text;
+   mobile: text;
+   partnerId: UserId;
+   patientId: text;
+   patientName: text;
+   referringDoctor: text;
+   reportUrl: opt text;
+   status: BookingStatus;
+   testIds: vec text;
+ };
+service : {
+  _immutableObjectStorageBlobsAreLive: (hashes: vec blob) -> (vec bool) query;
+  _immutableObjectStorageBlobsToDelete: () -> (vec blob) query;
+  _immutableObjectStorageConfirmBlobDeletion: (blobs: vec blob) -> ();
+  _immutableObjectStorageCreateCertificate: (blobHash: text) ->
+   (_ImmutableObjectStorageCreateCertificateResult);
+  _immutableObjectStorageRefillCashier: (refillInformation:
+   opt _ImmutableObjectStorageRefillInformation) ->
+   (_ImmutableObjectStorageRefillResult);
+  _immutableObjectStorageUpdateGatewayPrincipals: () -> ();
+  _initializeAccessControl: () -> ();
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  assignCenterPrincipal: (centerId: text, partnerPrincipal: UserId) ->
+   (CollectionCenter);
+  createBooking: (req: CreateBookingRequest) -> (Booking);
+  createCollectionCenter: (req: CreateCenterRequest) -> (CollectionCenter);
+  createTest: (name: text, category: text, mrp: nat, partnerPrice: nat,
+   sampleType: text, tubeType: text, fastingRequired: bool, reportTime: 
+   text, description: text) -> (LabTest);
+  deleteTest: (id: text) -> ();
+  getAllTests: () -> (vec LabTest) query;
+  getBooking: (id: text) -> (opt Booking) query;
+  getBookings: () -> (vec Booking) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getCollectionCenters: () -> (vec CollectionCenter) query;
+  getDashboardSummary: () -> (DashboardSummary) query;
+  getTests: () -> (vec LabTest) query;
+  isCallerAdmin: () -> (bool) query;
+  trackSample: (patientIdOrMobile: text) -> (opt Booking) query;
+  updateBookingStatus: (id: text, status: BookingStatus) -> (Booking);
+  updateCollectionCenter: (id: text, req: UpdateCenterRequest) ->
+   (CollectionCenter);
+  updateTest: (id: text, name: text, category: text, mrp: nat, partnerPrice:
+   nat, sampleType: text, tubeType: text, fastingRequired: bool, reportTime:
+   text, description: text, isActive: bool) -> (LabTest);
+  uploadReport: (bookingId: text, reportUrl: text) -> (Booking);
+}

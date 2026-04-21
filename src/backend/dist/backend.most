@@ -1,0 +1,89 @@
+// Version: 1.0.0
+type BookingStatus__866642965 =
+  {#Pending; #Processing; #ReportReady; #SampleReceived};
+type Booking__1057793126 =
+  {
+    age : Nat;
+    bookingDate : Timestamp__301639476;
+    createdAt : Timestamp__301639476;
+    gender : Text;
+    id : Text;
+    mobile : Text;
+    partnerId : UserId__158757552;
+    patientId : Text;
+    patientName : Text;
+    referringDoctor : Text;
+    reportUrl : ?Text;
+    status : BookingStatus__866642965;
+    testIds : [Text]
+  };
+type Booking__713243561 = Booking__1057793126;
+type CenterStatus__404857473 = {#active; #inactive};
+type CollectionCenter__387174571 =
+  {
+    address : Text;
+    assignedPrincipal : ?UserId__158757552;
+    city : Text;
+    contactPerson : Text;
+    createdAt : Timestamp__301639476;
+    id : Text;
+    mobile : Text;
+    name : Text;
+    status : CenterStatus__404857473
+  };
+type CollectionCenter__909824912 = CollectionCenter__387174571;
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type LabTest__37820901 = LabTest__795995837;
+type LabTest__795995837 =
+  {
+    category : Text;
+    description : Text;
+    fastingRequired : Bool;
+    id : Text;
+    isActive : Bool;
+    mrp : Nat;
+    name : Text;
+    partnerPrice : Nat;
+    reportTime : Text;
+    sampleType : Text;
+    tubeType : Text
+  };
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type Timestamp__301639476 = Int;
+type UserId__158757552 = Principal;
+type UserRole__1073662873 = {#admin; #guest; #user};
+actor {
+  stable var _centerCounter : Nat;
+  stable var _testCounter : Nat;
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1073662873>
+    };
+  stable bookingsStore :
+    {
+      var root : Node__46230540<Text, Booking__713243561>;
+      var size : Nat__490723111
+    };
+  stable centersStore :
+    {
+      var root : Node__46230540<Text, CollectionCenter__909824912>;
+      var size : Nat__490723111
+    };
+  stable testsStore :
+    {
+      var root : Node__46230540<Text, LabTest__37820901>;
+      var size : Nat__490723111
+    }
+};

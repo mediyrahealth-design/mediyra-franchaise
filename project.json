@@ -1,0 +1,24 @@
+{
+  "overview": "Mediyra Lab is a B2B pathology laboratory management system with a web admin panel and partner portal. Lab staff manage tests, bookings, collection centers, and reports while collection center partners log in to browse the price list, book patient tests, and track sample status — all with a professional teal-and-white medical UI.",
+  "features": [
+    "Role-based login for admin staff and collection center partners",
+    "Admin dashboard with booking counts, sample stats, and revenue summary",
+    "Full test catalog management with categories, pricing, and sample details",
+    "Booking management with status updates and PDF report uploads",
+    "Collection center management with credential assignment",
+    "Partner portal: price list, book patient, my bookings, track sample, billing, support",
+    "Automated email notifications when booking status changes",
+    "Secure PDF report storage and download for partners"
+  ],
+  "category": "productivity",
+  "tags": [
+    "pathology",
+    "laboratory",
+    "b2b",
+    "medical",
+    "healthcare",
+    "admin-panel",
+    "booking"
+  ],
+  "last_updated": "2026-04-21T04:07:46.781Z"
+}

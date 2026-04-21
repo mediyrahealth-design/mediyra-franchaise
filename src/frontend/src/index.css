@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Figtree", system-ui, sans-serif;
+    --font-body: "DM Sans", system-ui, sans-serif;
+    --font-mono: monospace;
+    --radius: 0.5rem;
+
+    --background: 0.99 0.01 200;
+    --foreground: 0.12 0.02 200;
+    --card: 1.0 0 0;
+    --card-foreground: 0.12 0.02 200;
+    --popover: 1.0 0 0;
+    --popover-foreground: 0.12 0.02 200;
+
+    --primary: 0.56 0.16 190;
+    --primary-foreground: 0.98 0 0;
+
+    --secondary: 0.94 0.02 200;
+    --secondary-foreground: 0.25 0.02 200;
+    --muted: 0.94 0.02 200;
+    --muted-foreground: 0.55 0.01 200;
+
+    --accent: 0.56 0.16 190;
+    --accent-foreground: 0.98 0 0;
+
+    --destructive: 0.6 0.25 30;
+    --destructive-foreground: 0.98 0 0;
+
+    --border: 0.91 0.01 190;
+    --input: 0.92 0.01 200;
+    --ring: 0.56 0.16 190;
+
+    --chart-1: 0.56 0.16 190;
+    --chart-2: 0.6 0.25 30;
+    --chart-3: 0.65 0.18 140;
+    --chart-4: 0.7 0.15 280;
+    --chart-5: 0.75 0.12 60;
+
+    --sidebar: 0.99 0 0;
+    --sidebar-foreground: 0.12 0.02 200;
+    --sidebar-primary: 0.56 0.16 190;
+    --sidebar-primary-foreground: 0.98 0 0;
+    --sidebar-accent: 0.94 0.02 200;
+    --sidebar-accent-foreground: 0.25 0.02 200;
+    --sidebar-border: 0.91 0.01 190;
+    --sidebar-ring: 0.56 0.16 190;
+  }
+
+  .dark {
+    --background: 0.13 0.01 200;
+    --foreground: 0.92 0.01 200;
+    --card: 0.16 0.01 200;
+    --card-foreground: 0.92 0.01 200;
+    --popover: 0.2 0.01 200;
+    --popover-foreground: 0.92 0.01 200;
+
+    --primary: 0.65 0.18 190;
+    --primary-foreground: 0.13 0.01 200;
+
+    --secondary: 0.2 0.01 200;
+    --secondary-foreground: 0.85 0.01 200;
+    --muted: 0.2 0.01 200;
+    --muted-foreground: 0.55 0.01 200;
+
+    --accent: 0.65 0.18 190;
+    --accent-foreground: 0.13 0.01 200;
+
+    --destructive: 0.65 0.25 30;
+    --destructive-foreground: 0.13 0.01 200;
+
+    --border: 0.25 0.01 190;
+    --input: 0.25 0.01 200;
+    --ring: 0.65 0.18 190;
+
+    --chart-1: 0.65 0.18 190;
+    --chart-2: 0.65 0.25 30;
+    --chart-3: 0.7 0.18 140;
+    --chart-4: 0.75 0.16 280;
+    --chart-5: 0.8 0.14 60;
+
+    --sidebar: 0.16 0.01 200;
+    --sidebar-foreground: 0.92 0.01 200;
+    --sidebar-primary: 0.65 0.18 190;
+    --sidebar-primary-foreground: 0.13 0.01 200;
+    --sidebar-accent: 0.2 0.01 200;
+    --sidebar-accent-foreground: 0.85 0.01 200;
+    --sidebar-border: 0.25 0.01 190;
+    --sidebar-ring: 0.65 0.18 190;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/assets/fonts/DMSans.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Figtree";
+  src: url("/assets/fonts/Figtree.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-elevated {
+    @apply bg-card border border-border rounded-lg shadow-sm;
+  }
+
+  .card-interactive {
+    @apply bg-card border border-primary/20 rounded-lg shadow-sm hover:border-primary/40 transition-smooth cursor-pointer;
+  }
+
+  .medical-header {
+    @apply border-b border-primary/20 bg-card py-4;
+  }
+
+  .medical-badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-accent/10 text-accent;
+  }
+
+  .status-badge-success {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+    background-color: oklch(var(--chart-3) / 0.1);
+    color: oklch(var(--chart-3));
+  }
+
+  .status-badge-warning {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+    background-color: oklch(var(--chart-2) / 0.1);
+    color: oklch(var(--chart-2));
+  }
+
+  .status-badge-pending {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-muted text-muted-foreground;
+  }
+}
